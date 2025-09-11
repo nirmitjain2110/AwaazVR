@@ -1,0 +1,110 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0d0f1a;
+  color: #fff;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+}
+
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00f0ff;
+}
+
+header nav a {
+  margin-left: 1.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #00f0ff;
+  margin-bottom: 1rem;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  width: 250px;
+}
+
+.feature h3 {
+  margin: 1rem 0;
+  color: #00f0ff;
+}
+
+.upload {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.upload-box {
+  border: 2px dashed #00f0ff;
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1rem auto;
+  width: 400px;
+  max-width: 90%;
+}
+
+.upload-box .browse {
+  color: #00f0ff;
+  cursor: pointer;
+}
+
+.upload button {
+  background: transparent;
+  border: 1px solid #00f0ff;
+  color: #00f0ff;
+  padding: 0.7rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 2rem;
+}
+
+footer .links a {
+  margin: 0 0.5rem;
+  color: #00f0ff;
+  text-decoration: none;
+}
+
+footer .tagline {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #bbb;
+}

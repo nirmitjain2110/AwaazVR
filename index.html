@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWAAZ - Presentation Analysis Report</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">AWAAZ</div>
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>Presentation Analysis Report</h1>
+            <p>Detailed evaluation of your VR presentation performance</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing your presentation...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="error" class="error-message" style="display: none;">
+            <h3>Unable to Generate Report</h3>
+            <p id="error-text">Please check your input and try again.</p>
+            <button id="retry-btn" class="retry-btn">Try Again</button>
+        </div>
+
+        <!-- Test Form for Development -->
+        <div id="test-form" class="test-form">
+            <h3>Test Report Generation</h3>
+            <p>Add question-answer pairs to test the report:</p>
+            <div id="qa-pairs">
+                <div class="qa-pair">
+                    <label>Question 1:</label>
+                    <input type="text" class="question-input" placeholder="Enter your question">
+                    <label>Answer 1:</label>
+                    <textarea class="answer-input" placeholder="Enter your answer"></textarea>
+                </div>
+            </div>
+            <button id="add-qa" class="add-btn">Add Another Q&A</button>
+            <button id="generate-report" class="generate-btn">Generate Report</button>
+        </div>
+
+        <!-- Report Container -->
+        <div id="reportContainer" class="report-container" style="display: none;">
+            <!-- Report cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Summary Stats -->
+        <div id="summary" class="summary-section" style="display: none;">
+            <h2>Performance Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="avg-score">0%</div>
+                    <div class="stat-label">Average Similarity</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="total-questions">0</div>
+                    <div class="stat-label">Questions Answered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="high-scores">0</div>
+                    <div class="stat-label">High Scores (>80%)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/support">Support</a>
+            </div>
+            <div class="footer-text">
+                © 2025 AWAAZ VR. All rights reserved.<br>
+                Empowering better presentations through immersive VR technology
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
