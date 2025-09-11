@@ -1,54 +1,9 @@
 import OpenAI from "openai";
+import express from express;
+import bodyParser from "body-parser";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-async function evaluateAnswer(question, userAnswer) {
-    const referencePrompt = `
-    You are an expert evaluator. 
-    Given the following question, generate a high-quality reference answer that covers all key points.
-
-    Question: "${question}"
-    Reference Answer:
-    `;
-
-    const referenceCompletion = await client.chat.completions.create({
-        model: " ", 
-        messages: [{ role: "user", content: referencePrompt }],
-        temperature: 0,
-    });
-
-    const referenceAnswer = referenceCompletion.choices[0].message.content.trim();
-    const evalPrompt = `
-
-    You are an evaluator for presentation answers.
-    Question: "${question}"
-    User's Answer: "${userAnswer}"
-    Reference Answer: "${referenceAnswer}"
-
-    Tasks:
-    1. Give a similarity score between the user's answer and the reference answer between 0 to 1.
-    2. List out the missing sentences/points that could improve the user's answer.
-    3. Return the output in JSON with fields: similarity, missing.
-    `;
-
-    const completion = await client.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: [{ role: "user", content: evalPrompt }],
-        temperature: 0,
-    });
-
-    const text = completion.choices[0].message.content;
-
-    let parsed;
-    try {
-        parsed = JSON.parse(text);
-    } catch {
-        parsed = { similarity: null, missing: [text] };
-    }
-
-    return { parsed, referenceAnswer };
-}
-
+const app= express();
+app.use(bodyParser.json());
 
 async function generateReport(qaPairs) {
     const results = [];
@@ -59,8 +14,8 @@ async function generateReport(qaPairs) {
             "Question": question,
             "User Answer": userAnswer,
             "Reference Answer": evaluation.referenceAnswer,
-            "Similarity Score": evaluation.similarity,
-            "Missing Points": evaluation.missing.join(" . ")
+            "Similarity Score": evaluation.parsed.similarity,
+            "Missing Points": evaluation.parsed.missing.join(" . ")
         });
     }
     return results;
@@ -73,9 +28,21 @@ const qaPairs = [
     }
 ];
 
-const run = async () => {
-    const report = await generateReport(qaPairs);
-    console.table(report);
-};
+app.post("/getAnalysis", async (req, res) => {
+    try {
+        const qaPairs = req.body.qaPairs;
+        if (!qaPairs || !Array.isArray(qaPairs)) {
+            return res.status(400).json({ error: "qaPairs must be an array" });
+        }
 
-run();
+        const report = await generateReport(qaPairs);
+        res.json({ success: true, report });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.listen(3000,()=>{
+    console.log("Listenin on port 3000");
+})
